@@ -14,6 +14,12 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <div class="main_pages">
+                <a href={{ path('home') }}><h1>FANZINE</h1></a>
+                <a href={{ path('app_login') }}>Connexion</a>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>
