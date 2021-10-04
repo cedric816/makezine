@@ -1,0 +1,12 @@
+.fanzine-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 264px;
+    height: 377px;
+    overflow: hidden;
+    background-color: whitesmoke;
+    margin: 10px;
+}
+
+@import "~bootstrap/scss/bootstrap";

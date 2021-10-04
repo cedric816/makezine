@@ -3,5 +3,47 @@
 {% block title %}MakeZine App{% endblock %}
 
 {% block body %}
-<h1>Fanzine App</h1>
-{% endblock %}
+<div class="container mt-4">
+    <h1>Mes fanzines</h1>
+    <div class="row">
+        <div class="col d-flex flex-wrap justify-content-between">
+            {% for fanzine in fanzines %}
+            <div class="card mt-2" style="width: 15rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{fanzine.title}}</h5>
+                    <p class="card-text">Créé le: {{fanzine.createdAt|date("d/m/Y")}}</p>
+                    <a href={{path("edit_zine", {id:fanzine.id})}} class="btn btn-primary">Modifier</a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="card mt-2" style="width: 15rem;">
+                <div class="card-body">
+                    <a href="#" class="btn btn-success">Créer un nouveau Fanzine</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6 border">
+            <h3>Fanzine en cours de modification</h1>
+                {% if selectedZine is defined %}
+                <h5>{{selectedZine.title}}</h5>
+                {% for page in pages %}
+                <div class="fanzine-page">
+                    {{page.position}}
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>Aucun fanzine sélectionné</p>
+                {% endif %}
+        </div>
+        <div class="col-md-6 border">
+            <h3>Outils d'édition</h3>
+            {% if selectedZine is defined %}
+
+            {% else %}
+            <p>Sélectionner un fanzine pour accéder aux outils d'édition</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
