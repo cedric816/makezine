@@ -19,7 +19,7 @@ class FanzineType extends AbstractType
                     "placeholder" => "titre"
                 ]
             ])
-            ->add('abstract', TextType::class, [
+            ->add('abstract', null, [
                 "label" => false,
                 "attr" => [
                     "placeholder" => "résumé"

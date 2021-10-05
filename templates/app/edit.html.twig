@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MakeZine App{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5 overflow-auto">
+    <div class="row mt-5 mb-4">
+        <div class="col-md-6 border">
+            <h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Fanzine en cours de modification</h3>
+            <h5>"{{selectedZine.title}}"</h5>
+            <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel"
+                data-bs-interval="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card" style="width: 264px; height: 377px; margin:auto">
+                            <div class="card-body">
+                                <h3 style="font-family: Press-Feeling-Eroded; font-size:26px">Titre</h3>
+                                <h5 class="card-title">{{selectedZine.title}}</h5>
+                                <h3 style="font-family: Press-Feeling-Eroded; font-size:26px">Résumé</h3>
+                                <p class="card-text">{{selectedZine.abstract}}</p>
+                                <h3 style="font-family: Press-Feeling-Eroded; font-size:26px">Date de création</h3>
+                                <p class="card-text">{{selectedZine.createdAt|date("d/m/Y")}}</p>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-2 d-flex justify-content-center">
+                            <a href={{path("update_zine", {"id":selectedZine.id})}} class="btn btn-info">Modifier
+                                les infos du Fanzine</a>
+                        </div>
+                    </div>
+                    {% for page in pages %}
+                    <div class="carousel-item">
+                        <div class="fanzine-page">
+                            {% for module in page.modules %}
+                            {% if module.collage %}
+                            <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+                            {% else %}
+                            <div class={{module.type}}>{{module.content}}</div>
+                            {% endif %}
+                            {% endfor %}
+                            <div class="d-flex justify-content-end">
+                                page {{page.position}}
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-2 d-flex justify-content-center">
+                            <a href={{path("page_view", {"id":page.id})}} class="btn btn-info">Editer page {{page.position}}</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6 border">
+            <h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Outils d'édition</h3>
+
+            {% if formUpdateZine is defined %}
+            {{form_start(formUpdateZine)}}
+            <div class="mb-3">
+                <label for="fanzine_title"><strong>Titre</strong></label>
+                {{form_row(formUpdateZine.title)}}
+            </div>
+            <div class="mb-3">
+                <label for="fanzine_abstract"><strong>Résumé</strong></label>
+                {{form_row(formUpdateZine.abstract)}}
+            </div>
+            <button class="btn btn-success">Modifier</button>
+            {{form_end(formUpdateZine)}}
+            {% endif %}
+
+            {% if selectedPage is defined %}
+                {% for module in modules %}
+                    {% if module.collage %}
+                    <div class={{module.type ~'-collage'}} style="text-align:start">{{module.content}}</div>
+                    {% else %}
+                    <div class={{module.type}} style="text-align:start">{{module.content}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

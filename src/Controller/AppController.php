@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Fanzine;
 use App\Entity\Page;
 use App\Form\FanzineType;
+use App\Form\ModuleType;
 use App\Repository\FanzineRepository;
+use App\Repository\ModuleRepository;
+use App\Repository\PageRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +42,9 @@ class AppController extends AbstractController
      */
     public function show($id): Response
     {
-        $fanzines = $this->getUser()->getFanzines();
         $selectedZine = $this->zineRepo->find($id);
         $pages = $selectedZine->getPages();
-        return $this->render('app/index.html.twig',[
-            "fanzines" => $fanzines,
+        return $this->render('app/edit.html.twig',[
             "selectedZine" => $selectedZine,
             "pages" => $pages
         ]);
@@ -99,5 +100,85 @@ class AppController extends AbstractController
         $entityManager->flush();
         
         return $this->redirectToRoute('app_index');
+    }
+
+    /**
+     * @Route("/update/{id}", name="update_zine")
+     */
+    public function update($id, FanzineRepository $zineRepo, Request $request): Response
+    {
+        $selectedZine = $this->zineRepo->find($id);
+        $pages = $selectedZine->getPages();
+        $fanzine = $zineRepo->find($id);
+        $form = $this->createForm(FanzineType::class, $fanzine);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $fanzine = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_zine', ["id"=>$id]);
+        }
+
+        return $this->render('app/edit.html.twig',[
+            "formUpdateZine" => $form->createView(),
+            "selectedZine" => $selectedZine,
+            "pages" => $pages
+        ]);
+    }
+
+    /**
+     * @Route("/page/{id}", name="page_view")
+     */
+    public function pageView($id, PageRepository $pageRepo): Response
+    {
+        
+        $selectedPage = $pageRepo->find($id);
+        $modules = $selectedPage->getModules();
+        $selectedZine = $selectedPage->getFanzine();
+        $pages = $selectedZine->getPages();
+        
+        return $this->render('app/edit-page.html.twig',[
+            "selectedPage" => $selectedPage,
+            "selectedZine" => $selectedZine,
+            "pages" => $pages,
+            "modules" => $modules
+        ]);
+    }
+
+    /**
+     * @Route("/module/edit/{id}", name="edit_module")
+     */
+    public function editModule($id, ModuleRepository $moduleRepo, Request $request, PageRepository $pageRepo): Response
+    {
+        $module = $moduleRepo->find($id);
+        $formModule = $this->createForm(ModuleType::class, $module);
+        $formModule->handleRequest($request);
+
+        $idPage = $module->getPage()->getId();
+
+        if ($formModule->isSubmitted() && $formModule->isValid()) {
+            $module = $formModule->getData();
+            $entityManager = $this->getDoctrine()->getManager();           
+            $entityManager->flush();            
+            return $this->redirectToRoute('page_view', ["id"=>$idPage]);
+        }
+
+        $selectedPage = $pageRepo->find($idPage);
+        $modules = $selectedPage->getModules();
+        $selectedZine = $selectedPage->getFanzine();
+        $pages = $selectedZine->getPages();
+        
+        return $this->render('app/edit-page.html.twig',[
+            "selectedPage" => $selectedPage,
+            "selectedZine" => $selectedZine,
+            "pages" => $pages,
+            "modules" => $modules,
+            "formModule" => $formModule->createView()
+        ]);
     }
 }
