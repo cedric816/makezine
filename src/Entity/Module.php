@@ -41,7 +41,7 @@ class Module
     /**
      * @ORM\Column(type="boolean")
      */
-    private $speeled;
+    private $collage;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -111,14 +111,14 @@ class Module
         return $this;
     }
 
-    public function getSpeeled(): ?bool
+    public function getCollage(): ?bool
     {
-        return $this->speeled;
+        return $this->collage;
     }
 
-    public function setSpeeled(bool $speeled): self
+    public function setCollage(bool $collage): self
     {
-        $this->speeled = $speeled;
+        $this->speeled = $collage;
 
         return $this;
     }

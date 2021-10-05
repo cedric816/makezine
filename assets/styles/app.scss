@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "Press-Feeling-Eroded";
+    src: url("/assets/fonts/Press-Feeling-Eroded.ttf") format("truetype");
+}
 .fanzine-page{
     display: flex;
     flex-direction: column;
@@ -7,6 +11,44 @@
     overflow: hidden;
     background-color: whitesmoke;
     margin: 10px;
+    padding: 5px;
+    font-family: "Press-Feeling-Eroded";
+}
+.title-collage, .paragraph-collage{
+    display: inline-block;
+    letter-spacing: 2px;
+    color: black;
+    -webkit-box-shadow: inset -1px -2px 2px 1px #000000; 
+    box-shadow: inset -1px -2px 8px 1px #000000;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    border-right: solid black 1px;
+    border-bottom: solid black 1px;
+}
+.no-collage{
+    display: inline-block;
+    padding: 1px 3px 1px 3px;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    font-size: 12px;
+    color: black;
+}
+.title, .paragraph, .title-collage, .paragraph-collage{
+    text-align: center;
+    padding: 2px 5px 2px 5px;
+}
+.title, .title-collage{
+    font-size: 36px;
+}
+.paragraph, .paragraph-collage{
+    font-size: 12px;
+}
+.title::first-letter, .title-collage::first-letter{
+    font-size: 48px;
+}
+
+.carousel-inner .fanzine-page{
+    margin: auto;
 }
 
 @import "~bootstrap/scss/bootstrap";

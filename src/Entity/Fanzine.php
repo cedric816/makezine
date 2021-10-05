@@ -40,6 +40,11 @@ class Fanzine
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $abstract;
+
     public function __construct()
     {
         $this->pages = new ArrayCollection();
@@ -112,6 +117,18 @@ class Fanzine
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAbstract(): ?string
+    {
+        return $this->abstract;
+    }
+
+    public function setAbstract(?string $abstract): self
+    {
+        $this->abstract = $abstract;
 
         return $this;
     }

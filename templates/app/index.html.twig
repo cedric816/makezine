@@ -9,30 +9,75 @@
         <div class="col d-flex flex-wrap justify-content-between">
             {% for fanzine in fanzines %}
             <div class="card mt-2" style="width: 15rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{fanzine.title}}</h5>
-                    <p class="card-text">Créé le: {{fanzine.createdAt|date("d/m/Y")}}</p>
-                    <a href={{path("edit_zine", {id:fanzine.id})}} class="btn btn-primary">Modifier</a>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title"><strong>Titre:</strong> {{fanzine.title}}</h5>
+                    <p class="card-text"><strong>Créé le:</strong> {{fanzine.createdAt|date("d/m/Y")}}</p>
+                    <p class="card-text"><strong>Résumé:</strong> {{fanzine.abstract}}</p>
+                    <a href={{path("edit_zine", {id:fanzine.id})}} class="btn btn-primary">Voir</a>
                 </div>
             </div>
             {% endfor %}
             <div class="card mt-2" style="width: 15rem;">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column justify-content-center">
                     <a href="#" class="btn btn-success">Créer un nouveau Fanzine</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 mb-4">
         <div class="col-md-6 border">
             <h3>Fanzine en cours de modification</h1>
                 {% if selectedZine is defined %}
                 <h5>{{selectedZine.title}}</h5>
-                {% for page in pages %}
-                <div class="fanzine-page">
-                    {{page.position}}
+
+                <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="fanzine-page">
+                                <div class="title-collage">Titre</div>
+                                <p class="paragraph">{{selectedZine.title}}</p>
+                                <div class="paragraph-collage">Résumé</div>
+                                <p class="paragraph">{{selectedZine.abstract}}</p>
+                                <div class="paragraph-collage">Date de création</div>
+                                <p class="paragraph">{{selectedZine.createdAt|date("d/m/Y")}}</p>
+                            </div>
+                            <div class="mt-2 mb-2 d-flex justify-content-center">
+                                <a href="#" class="btn btn-info">Modifier les infos du Fanzine</a>
+                            </div>
+                        </div>
+
+                        {% for page in pages %}
+                        <div class="carousel-item">
+                            <div class="fanzine-page">
+                                {% for module in page.modules %}
+                                {% if module.collage %}
+                                <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+                                {% else %}
+                                <div class={{module.type}}>{{module.content}}</div>
+                                {% endif %}
+                                {% endfor %}
+                                <div class="d-flex justify-content-end">
+                                    page {{page.position}}
+                                </div>
+                            </div>
+                            <div class="mt-2 mb-2 d-flex justify-content-center">
+                                <a href="#" class="btn btn-info">Editer cette page</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                {% endfor %}
+
                 {% else %}
                 <p>Aucun fanzine sélectionné</p>
                 {% endif %}
@@ -46,4 +91,5 @@
             {% endif %}
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
