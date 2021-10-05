@@ -2,6 +2,9 @@
     font-family: "Press-Feeling-Eroded";
     src: url("/assets/fonts/Press-Feeling-Eroded.ttf") format("truetype");
 }
+body{
+    min-height: 100vh;
+}
 .fanzine-page{
     display: flex;
     flex-direction: column;
