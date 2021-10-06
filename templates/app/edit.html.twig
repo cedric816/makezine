@@ -31,9 +31,25 @@
                     <div class="carousel-item">
                         <div class="fanzine-page">
                             {% for module in page.modules %}
-                            {% if module.collage %}
+
+                            {% if module.type == 'image' and module.scotch == true %}
+                            <div class="picture img-tape">
+                                <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+                                <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+                            </div>
+                            {% endif %}
+
+                            {% if module.type == 'image' and module.scotch != true %}
+                            <div class="picture">
+                                <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+                                <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+                            </div>
+                            {% endif %}
+
+                            {% if module.collage == true and module.type != 'image' %}
                             <div class={{module.type ~'-collage'}}>{{module.content}}</div>
-                            {% else %}
+                            {% endif %}
+                            {% if module.collage == false and module.type != 'image' %}
                             <div class={{module.type}}>{{module.content}}</div>
                             {% endif %}
                             {% endfor %}

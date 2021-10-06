@@ -24,7 +24,7 @@ class Module
     private $page;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
 
@@ -52,6 +52,11 @@ class Module
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $scotch;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $legend;
 
     public function getId(): ?int
     {
@@ -138,6 +143,18 @@ class Module
     public function setScotch(?bool $scotch): self
     {
         $this->scotch = $scotch;
+
+        return $this;
+    }
+
+    public function getLegend(): ?string
+    {
+        return $this->legend;
+    }
+
+    public function setLegend(?string $legend): self
+    {
+        $this->legend = $legend;
 
         return $this;
     }

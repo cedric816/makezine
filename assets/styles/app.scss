@@ -36,7 +36,7 @@ body{
     font-size: 14px;
     color: black;
 }
-.title, .paragraph, .title-collage, .paragraph-collage{
+.title, .paragraph, .title-collage, .paragraph-collage, .picture{
     text-align: center;
     padding: 2px 5px 2px 5px;
 }
@@ -49,6 +49,31 @@ body{
 }
 .title::first-letter, .title-collage::first-letter{
     font-size: 48px;
+}
+.picture img{
+    max-width: 100%;
+}
+.img-tape {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+.img-tape::before{
+    background: rgba(255,255,235,.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,.4);
+    content: "";
+    display: block;
+    height: 20px;
+    position: absolute;
+    margin: auto;
+    margin-top: 5px;
+    width: 60px;
+}
+
+.img-tape::before{
+    left: 50%;
+    margin-left: -30px;
+    top: -10px;
 }
 
 .carousel-inner .fanzine-page{

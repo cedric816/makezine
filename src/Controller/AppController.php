@@ -12,6 +12,7 @@ use App\Repository\ModuleRepository;
 use App\Repository\PageRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,7 @@ class AppController extends AbstractController
     public function index(): Response
     {
         $fanzines = $this->getUser()->getFanzines();
-        return $this->render('app/index.html.twig',[
+        return $this->render('app/index.html.twig', [
             "fanzines" => $fanzines
         ]);
     }
@@ -45,7 +46,7 @@ class AppController extends AbstractController
     {
         $selectedZine = $this->zineRepo->find($id);
         $pages = $selectedZine->getPages();
-        return $this->render('app/edit.html.twig',[
+        return $this->render('app/edit.html.twig', [
             "selectedZine" => $selectedZine,
             "pages" => $pages
         ]);
@@ -57,14 +58,14 @@ class AppController extends AbstractController
     public function create(Request $request): Response
     {
         $fanzines = $this->getUser()->getFanzines();
-        
+
         $fanzine = new Fanzine();
         $form = $this->createForm(FanzineType::class, $fanzine);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $fanzine = $form->getData();
             $fanzine->setCreatedAt(new DateTimeImmutable());
             $fanzine->setUser($this->getUser());
@@ -72,7 +73,7 @@ class AppController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($fanzine);
 
-            for ($p=1; $p<=8; $p++){
+            for ($p = 1; $p <= 8; $p++) {
                 $page = new Page();
                 $page->setFanzine($fanzine);
                 $page->setPosition($p);
@@ -84,7 +85,7 @@ class AppController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        return $this->render('app/index.html.twig',[
+        return $this->render('app/index.html.twig', [
             "formCreateZine" => $form->createView(),
             "fanzines" => $fanzines
         ]);
@@ -99,7 +100,7 @@ class AppController extends AbstractController
         $fanzine = $zineRepo->find($id);
         $entityManager->remove($fanzine);
         $entityManager->flush();
-        
+
         return $this->redirectToRoute('app_index');
     }
 
@@ -119,13 +120,13 @@ class AppController extends AbstractController
             $fanzine = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('show_zine', ["id"=>$id]);
+            return $this->redirectToRoute('show_zine', ["id" => $id]);
         }
 
-        return $this->render('app/edit.html.twig',[
+        return $this->render('app/edit.html.twig', [
             "formUpdateZine" => $form->createView(),
             "selectedZine" => $selectedZine,
             "pages" => $pages
@@ -137,13 +138,13 @@ class AppController extends AbstractController
      */
     public function pageView($id, PageRepository $pageRepo): Response
     {
-        
+
         $selectedPage = $pageRepo->find($id);
         $modules = $selectedPage->getModules();
         $selectedZine = $selectedPage->getFanzine();
         $pages = $selectedZine->getPages();
-        
-        return $this->render('app/edit-page.html.twig',[
+
+        return $this->render('app/edit-page.html.twig', [
             "selectedPage" => $selectedPage,
             "selectedZine" => $selectedZine,
             "pages" => $pages,
@@ -163,17 +164,38 @@ class AppController extends AbstractController
         $idPage = $module->getPage()->getId();
 
         if ($formModule->isSubmitted() && $formModule->isValid()) {
+
+            $file = $formModule->get('url')->getData();
+            if ($file) {
+                //unique image name
+                $timestamp = time();
+                $userId = $this->getUser()->getId();
+                $imageName = $timestamp . $userId.'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $imageName
+                    );
+                } catch (FileException $e) {
+                    dd($e->getMessage());
+                }
+                $module->setUrl($imageName);
+
+            }
+
             $module = $formModule->getData();
-            $entityManager = $this->getDoctrine()->getManager();           
-            $entityManager->flush();            
-            return $this->redirectToRoute('page_view', ["id"=>$idPage]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('page_view', ["id" => $idPage]);
         }
 
         $selectedPage = $pageRepo->find($idPage);
         $modules = $selectedPage->getModules();
         $selectedZine = $selectedPage->getFanzine();
-        
-        return $this->render('app/edit-page.html.twig',[
+
+        return $this->render('app/edit-page.html.twig', [
             "selectedPage" => $selectedPage,
             "selectedZine" => $selectedZine,
             "modules" => $modules,
@@ -195,15 +217,36 @@ class AppController extends AbstractController
         $selectedZine = $selectedPage->getFanzine();
 
         if ($formModuleCreate->isSubmitted() && $formModuleCreate->isValid()) {
+
+            $file = $formModuleCreate->get('url')->getData();
+            if ($file) {
+                //unique image name
+                $timestamp = time();
+                $userId = $this->getUser()->getId();
+                $imageName = $timestamp . $userId.'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $imageName
+                    );
+                } catch (FileException $e) {
+                    dd($e->getMessage());
+                }
+                $module->setUrl($imageName);
+
+            }
+
             $module = $formModuleCreate->getData();
             $module->setPage($selectedPage);
-            $entityManager = $this->getDoctrine()->getManager(); 
-            $entityManager->persist($module);          
-            $entityManager->flush();            
-            return $this->redirectToRoute('page_view', ["id"=>$idPage]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($module);
+            $entityManager->flush();
+            return $this->redirectToRoute('page_view', ["id" => $idPage]);
         }
-        
-        return $this->render('app/edit-page.html.twig',[
+
+        return $this->render('app/edit-page.html.twig', [
             "selectedPage" => $selectedPage,
             "selectedZine" => $selectedZine,
             "modules" => $modules,
@@ -224,8 +267,8 @@ class AppController extends AbstractController
         $modules = $selectedPage->getModules();
         $entityManager->remove($module);
         $entityManager->flush();
-        
-        return $this->render('app/edit-page.html.twig',[
+
+        return $this->render('app/edit-page.html.twig', [
             "selectedPage" => $selectedPage,
             "selectedZine" => $selectedZine,
             "pages" => $pages,

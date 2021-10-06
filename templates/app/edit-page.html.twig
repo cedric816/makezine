@@ -14,20 +14,49 @@
                     <div class="carousel-item active">
                         <div class="fanzine-page">
                             {% for module in modules %}
-                            {% if module.collage %}
+
+                            {% if module.type == 'image' and module.scotch == true %}
+                            <div class="picture img-tape">
+                                <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+                                <figcaption style="font-style: italic">{{module.legend}}
+                                    <a href={{path("edit_module", {"id":module.id})}}
+                                        style="text-decoration: none">🖊️</a>
+                                    <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" ,
+                                        onclick="return confirm('supprimer le module?')">🗑️</a>
+                                </figcaption>
+                            </div>
+                            {% endif %}
+
+                            {% if module.type == 'image' and module.scotch != true %}
+                            <div class="picture">
+                                <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+                                <figcaption style="font-style: italic">{{module.legend}}
+                                    <a href={{path("edit_module", {"id":module.id})}}
+                                        style="text-decoration: none">🖊️</a>
+                                    <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" ,
+                                        onclick="return confirm('supprimer le module?')">🗑️</a>
+                                </figcaption>
+                            </div>
+                            {% endif %}
+
+                            {% if module.collage == true and module.type != 'image' %}
                             <div class={{module.type ~'-collage'}}>{{module.content}}<a href={{path("edit_module",
                                     {"id":module.id})}} style="text-decoration: none">🖊️</a>
-                                    <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none", onclick="return confirm('supprimer le module?')">🗑️</a>
+                                <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" ,
+                                    onclick="return confirm('supprimer le module?')">🗑️</a>
                             </div>
-                            {% else %}
+                            {% endif %}
+                            {% if module.collage == false and module.type != 'image' %}
                             <div class={{module.type}}>{{module.content}}
                                 <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">🖊️</a>
-                                <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" , onclick="return confirm('supprimer le module?')">🗑️</a>
+                                <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" ,
+                                    onclick="return confirm('supprimer le module?')">🗑️</a>
                             </div>
                             {% endif %}
                             {% endfor %}
                             <div class="d-flex justify-content-end">
-                                <a href={{path("create_module", {"idPage": selectedPage.id})}} style="text-decoration: none; border: solid black 1px; border-radius: 50%; padding: 3px; ">➕</a>
+                                <a href={{path("create_module", {"idPage": selectedPage.id})}}
+                                    style="text-decoration: none; border: solid black 1px; border-radius: 50%; padding: 3px; ">➕</a>
                             </div>
                         </div>
                         <div class="mt-2 mb-2 d-flex justify-content-center">
@@ -53,43 +82,67 @@
                     <label for="fanzine_abstract"><strong>Résumé</strong></label>
                     {{form_row(formUpdateZine.abstract)}}
                 </div>
-                <button class="btn btn-success">Modifier</button>
+                <button class="btn btn-success mb-3">Modifier</button>
                 {{form_end(formUpdateZine)}}
                 {% endif %}
 
                 {% if formModule is defined %}
                 {{form_start(formModule)}}
                 <div class="mb-3">
-                    <label for="module_content"><strong>Contenu</strong></label>
-                    {{form_row(formModule.content)}}
-                </div>
-                <div class="mb-3">
                     <label for="module_type"><strong>Type</strong></label>
                     {{form_row(formModule.type)}}
                 </div>
                 <div class="mb-3">
-                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
+                    <label for="module_content"><strong>Contenu</strong> (uniquement pour texte/titre)</label>
+                    {{form_row(formModule.content)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_legend"><strong>Légende </strong>(uniquement pour image)</label>
+                    {{form_row(formModule.legend)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong>(uniquement pour texte/titre)?</label>
                     {{form_row(formModule.collage)}}
                 </div>
-                <button class="btn btn-success">Modifier</button>
+                <div class="mb-3">
+                    <label for="module_url"><strong>Télécharger une image</strong></label>
+                    {{form_row(formModule.url)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_scotch"><strong>Appliquer un aspect `scotch`?</strong>(uniquement pour image)?</label>
+                    {{form_row(formModule.scotch)}}
+                </div>
+                <button class="btn btn-success mb-3">Modifier</button>
                 {{form_end(formModule)}}
                 {% endif %}
 
                 {% if formModuleCreate is defined %}
                 {{form_start(formModuleCreate)}}
                 <div class="mb-3">
-                    <label for="module_content"><strong>Contenu</strong></label>
-                    {{form_row(formModuleCreate.content)}}
-                </div>
-                <div class="mb-3">
                     <label for="module_type"><strong>Type</strong></label>
                     {{form_row(formModuleCreate.type)}}
                 </div>
                 <div class="mb-3">
-                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
+                    <label for="module_content"><strong>Contenu (uniquement pour texte/paragraphe)</strong></label>
+                    {{form_row(formModuleCreate.content)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_legend"><strong>Légende (uniquement pour image)</strong></label>
+                    {{form_row(formModuleCreate.legend)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_collage"><strong>Appliquer un aspect `collage` au texte/titre?</strong></label>
                     {{form_row(formModuleCreate.collage)}}
                 </div>
-                <button class="btn btn-success">Insérer</button>
+                <div class="mb-3">
+                    <label for="module_url"><strong>Télécharger une image</strong></label>
+                    {{form_row(formModuleCreate.url)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_scotch"><strong>Appliquer un aspect `scotch` à l'image?</strong></label>
+                    {{form_row(formModuleCreate.scotch)}}
+                </div>
+                <button class="btn btn-success mb-3">Insérer</button>
                 {{form_end(formModuleCreate)}}
                 {% endif %}
             </div>
