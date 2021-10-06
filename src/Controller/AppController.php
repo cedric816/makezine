@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Fanzine;
+use App\Entity\Module;
 use App\Entity\Page;
 use App\Form\FanzineType;
 use App\Form\ModuleType;
@@ -171,14 +172,64 @@ class AppController extends AbstractController
         $selectedPage = $pageRepo->find($idPage);
         $modules = $selectedPage->getModules();
         $selectedZine = $selectedPage->getFanzine();
+        
+        return $this->render('app/edit-page.html.twig',[
+            "selectedPage" => $selectedPage,
+            "selectedZine" => $selectedZine,
+            "modules" => $modules,
+            "formModule" => $formModule->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/module/create/{idPage}", name="create_module")
+     */
+    public function createModule($idPage, PageRepository $pageRepo, Request $request): Response
+    {
+        $module = new Module();
+        $formModuleCreate = $this->createForm(ModuleType::class, $module);
+        $formModuleCreate->handleRequest($request);
+
+        $selectedPage = $pageRepo->find($idPage);
+        $modules = $selectedPage->getModules();
+        $selectedZine = $selectedPage->getFanzine();
+
+        if ($formModuleCreate->isSubmitted() && $formModuleCreate->isValid()) {
+            $module = $formModuleCreate->getData();
+            $module->setPage($selectedPage);
+            $entityManager = $this->getDoctrine()->getManager(); 
+            $entityManager->persist($module);          
+            $entityManager->flush();            
+            return $this->redirectToRoute('page_view', ["id"=>$idPage]);
+        }
+        
+        return $this->render('app/edit-page.html.twig',[
+            "selectedPage" => $selectedPage,
+            "selectedZine" => $selectedZine,
+            "modules" => $modules,
+            "formModuleCreate" => $formModuleCreate->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/module/delete/{id}", name="delete_module")
+     */
+    public function deleteModule($id, ModuleRepository $moduleRepo): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $module = $moduleRepo->find($id);
+        $selectedPage = $module->getPage();
+        $selectedZine = $selectedPage->getFanzine();
         $pages = $selectedZine->getPages();
+        $modules = $selectedPage->getModules();
+        $entityManager->remove($module);
+        $entityManager->flush();
         
         return $this->render('app/edit-page.html.twig',[
             "selectedPage" => $selectedPage,
             "selectedZine" => $selectedZine,
             "pages" => $pages,
-            "modules" => $modules,
-            "formModule" => $formModule->createView()
+            "modules" => $modules
         ]);
     }
 }

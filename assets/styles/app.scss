@@ -33,7 +33,7 @@ body{
     padding: 1px 3px 1px 3px;
     margin-bottom: 5px;
     letter-spacing: 2px;
-    font-size: 12px;
+    font-size: 14px;
     color: black;
 }
 .title, .paragraph, .title-collage, .paragraph-collage{
@@ -44,7 +44,8 @@ body{
     font-size: 36px;
 }
 .paragraph, .paragraph-collage{
-    font-size: 12px;
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 .title::first-letter, .title-collage::first-letter{
     font-size: 48px;

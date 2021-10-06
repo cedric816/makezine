@@ -29,11 +29,6 @@ class Module
     private $content;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $position;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $type;
@@ -44,7 +39,7 @@ class Module
     private $collage;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $color;
 
@@ -87,18 +82,6 @@ class Module
         return $this;
     }
 
-    public function getPosition(): ?int
-    {
-        return $this->position;
-    }
-
-    public function setPosition(int $position): self
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -118,7 +101,7 @@ class Module
 
     public function setCollage(bool $collage): self
     {
-        $this->speeled = $collage;
+        $this->collage = $collage;
 
         return $this;
     }

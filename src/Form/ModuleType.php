@@ -4,9 +4,7 @@ namespace App\Form;
 
 use App\Entity\Module;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,17 +13,19 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content')
+            ->add('content', null, [
+                'label' => false
+            ])
             //->add('position')
             ->add('type', ChoiceType::class, [
-                'label' => 'Type de contenu',
+                'label' => false,
                 'choices' => [
                     'Texte' => 'paragraph',
                     'Titre' => 'title'
                 ]
             ])
             ->add('collage', ChoiceType::class, [
-                'label' => 'appliquer un effet `collage`?',
+                'label' => false,
                 'choices' => [
                     'oui' => 1,
                     'non' => 0

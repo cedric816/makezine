@@ -7,7 +7,7 @@
     <div class="row mt-5 mb-4">
         <div class="col-md-6 border">
             <h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Fanzine en cours de modification</h3>
-            <h5>"{{selectedZine.title}}"</h5>
+            <h5>"{{selectedZine.title}}" - Page {{selectedPage.position}}</h5>
             <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel"
                 data-bs-interval="false">
                 <div class="carousel-inner">
@@ -15,13 +15,19 @@
                         <div class="fanzine-page">
                             {% for module in modules %}
                             {% if module.collage %}
-                            <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+                            <div class={{module.type ~'-collage'}}>{{module.content}}<a href={{path("edit_module",
+                                    {"id":module.id})}} style="text-decoration: none">🖊️</a>
+                                    <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none", onclick="return confirm('supprimer le module?')">🗑️</a>
+                            </div>
                             {% else %}
-                            <div class={{module.type}}>{{module.content}}</div>
+                            <div class={{module.type}}>{{module.content}}
+                                <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">🖊️</a>
+                                <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" , onclick="return confirm('supprimer le module?')">🗑️</a>
+                            </div>
                             {% endif %}
                             {% endfor %}
                             <div class="d-flex justify-content-end">
-                                page {{selectedPage.position}}
+                                <a href={{path("create_module", {"idPage": selectedPage.id})}} style="text-decoration: none; border: solid black 1px; border-radius: 50%; padding: 3px; ">➕</a>
                             </div>
                         </div>
                         <div class="mt-2 mb-2 d-flex justify-content-center">
@@ -36,48 +42,57 @@
         </div>
         <div class="col-md-6 border">
             <h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Outils d'édition</h3>
-
-            {% if formUpdateZine is defined %}
-            {{form_start(formUpdateZine)}}
-            <div class="mb-3">
-                <label for="fanzine_title"><strong>Titre</strong></label>
-                {{form_row(formUpdateZine.title)}}
-            </div>
-            <div class="mb-3">
-                <label for="fanzine_abstract"><strong>Résumé</strong></label>
-                {{form_row(formUpdateZine.abstract)}}
-            </div>
-            <button class="btn btn-success">Modifier</button>
-            {{form_end(formUpdateZine)}}
-            {% endif %}
-
-            {% if selectedPage is defined %}
-                {% for module in modules %}
-                    {% if module.collage %}
-                    <div class="d-flex align-items-end">
-                        <div class={{module.type ~'-collage'}} style="text-align:start; font-family: Press-Feeling-Eroded">
-                            {{module.content}}</div>
-                        <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">🖊️</a>
-                    </div>
-                    {% else %}
-                    <div class="d-flex align-items-end">
-                        <div class={{module.type}} style="text-align:start; font-family: Press-Feeling-Eroded">
-                            {{module.content}}</div>
-                        <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">🖊️</a>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-            {% if formModule is defined %}
-                {{form_start(formModule)}}
-                {{form_row(formModule.content)}}
-                {{form_row(formModule.type)}}
-                {{form_row(formModule.collage)}}
+            <div class="container mt-3">
+                {% if formUpdateZine is defined %}
+                {{form_start(formUpdateZine)}}
+                <div class="mb-3">
+                    <label for="fanzine_title"><strong>Titre</strong></label>
+                    {{form_row(formUpdateZine.title)}}
+                </div>
+                <div class="mb-3">
+                    <label for="fanzine_abstract"><strong>Résumé</strong></label>
+                    {{form_row(formUpdateZine.abstract)}}
+                </div>
                 <button class="btn btn-success">Modifier</button>
-                {{form_end(formModule)}} 
-            {% endif %}
+                {{form_end(formUpdateZine)}}
+                {% endif %}
 
-           
+                {% if formModule is defined %}
+                {{form_start(formModule)}}
+                <div class="mb-3">
+                    <label for="module_content"><strong>Contenu</strong></label>
+                    {{form_row(formModule.content)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_type"><strong>Type</strong></label>
+                    {{form_row(formModule.type)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
+                    {{form_row(formModule.collage)}}
+                </div>
+                <button class="btn btn-success">Modifier</button>
+                {{form_end(formModule)}}
+                {% endif %}
+
+                {% if formModuleCreate is defined %}
+                {{form_start(formModuleCreate)}}
+                <div class="mb-3">
+                    <label for="module_content"><strong>Contenu</strong></label>
+                    {{form_row(formModuleCreate.content)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_type"><strong>Type</strong></label>
+                    {{form_row(formModuleCreate.type)}}
+                </div>
+                <div class="mb-3">
+                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
+                    {{form_row(formModuleCreate.collage)}}
+                </div>
+                <button class="btn btn-success">Insérer</button>
+                {{form_end(formModuleCreate)}}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
