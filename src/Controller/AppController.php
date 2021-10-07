@@ -170,7 +170,7 @@ class AppController extends AbstractController
                 //unique image name
                 $timestamp = time();
                 $userId = $this->getUser()->getId();
-                $imageName = $timestamp . $userId.'.'.$file->guessExtension();
+                $imageName = $timestamp . $userId . '.' . $file->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -182,7 +182,6 @@ class AppController extends AbstractController
                     dd($e->getMessage());
                 }
                 $module->setUrl($imageName);
-
             }
 
             $module = $formModule->getData();
@@ -223,7 +222,7 @@ class AppController extends AbstractController
                 //unique image name
                 $timestamp = time();
                 $userId = $this->getUser()->getId();
-                $imageName = $timestamp . $userId.'.'.$file->guessExtension();
+                $imageName = $timestamp . $userId . '.' . $file->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -235,7 +234,6 @@ class AppController extends AbstractController
                     dd($e->getMessage());
                 }
                 $module->setUrl($imageName);
-
             }
 
             $module = $formModuleCreate->getData();
@@ -273,6 +271,18 @@ class AppController extends AbstractController
             "selectedZine" => $selectedZine,
             "pages" => $pages,
             "modules" => $modules
+        ]);
+    }
+
+    /**
+     * @Route("/print/{id}", name="print_zine")
+     */
+    public function editPdf($id, FanzineRepository $zineRepo)
+    {
+        $fanzine = $zineRepo->find($id);
+        
+        return $this->render("app/print-zine.html.twig", [
+            "fanzine" => $fanzine
         ]);
     }
 }
