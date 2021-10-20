@@ -123,63 +123,63 @@
 
                 {% if formModule is defined %}
                 {{form_start(formModule)}}
-                <div class="mb-3">
+                <div class="mb-3" id="champ-type">
                     <label for="module_type"><strong>Type</strong></label>
                     {{form_row(formModule.type)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-contenu">
                     <label for="module_content"><strong>Contenu</strong> (uniquement pour texte/titre)</label>
                     {{form_row(formModule.content)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-legende">
                     <label for="module_legend"><strong>Légende </strong>(uniquement pour image)</label>
                     {{form_row(formModule.legend)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-collage">
                     <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong>(uniquement pour
                         texte/titre)?</label>
                     {{form_row(formModule.collage)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-url">
                     <label for="module_url"><strong>Télécharger une image</strong></label>
                     {{form_row(formModule.url)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-scotch">
                     <label for="module_scotch"><strong>Appliquer un aspect `scotch`?</strong>(uniquement pour
                         image)?</label>
                     {{form_row(formModule.scotch)}}
                 </div>
-                <button class="btn btn-success mb-3">Modifier</button>
+                <button class="btn btn-success mb-3" id="submit-btn">Modifier</button>
                 {{form_end(formModule)}}
                 {% endif %}
 
                 {% if formModuleCreate is defined %}
                 {{form_start(formModuleCreate)}}
-                <div class="mb-3">
+                <div class="mb-3" id="champ-type">
                     <label for="module_type"><strong>Type</strong></label>
                     {{form_row(formModuleCreate.type)}}
                 </div>
-                <div class="mb-3">
-                    <label for="module_content"><strong>Contenu (uniquement pour texte/paragraphe)</strong></label>
+                <div class="mb-3" id="champ-contenu">
+                    <label for="module_content"><strong>Contenu (uniquement pour texte/titre)</strong></label>
                     {{form_row(formModuleCreate.content)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-legende">
                     <label for="module_legend"><strong>Légende (uniquement pour image)</strong></label>
                     {{form_row(formModuleCreate.legend)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-collage">
                     <label for="module_collage"><strong>Appliquer un aspect `collage` au texte/titre?</strong></label>
                     {{form_row(formModuleCreate.collage)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-url">
                     <label for="module_url"><strong>Télécharger une image</strong></label>
                     {{form_row(formModuleCreate.url)}}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id="champ-scotch">
                     <label for="module_scotch"><strong>Appliquer un aspect `scotch` à l'image?</strong></label>
                     {{form_row(formModuleCreate.scotch)}}
                 </div>
-                <button class="btn btn-success mb-3">Insérer</button>
+                <button class="btn btn-success mb-3" id="submit-btn">Insérer</button>
                 {{form_end(formModuleCreate)}}
                 {% endif %}
             </div>

@@ -1,9 +1,9 @@
 {% extends 'base-without-menu.html.twig' %}
 
-{% block title %}MakeZine App{% endblock %}
+{% block title %}Zine ready to print :){% endblock %}
 
 {% block body %}
-<div class="d-flex flex-wrap" style="height:1140px; width: 805px">
+<div class="d-flex flex-wrap" style="height:1140px; width: 805px; margin-left:10px">
     {% for page in fanzine.pages %}
 
     {% if page.position == 1 %}
@@ -91,7 +91,7 @@
     {% endif %}
 
     {% if page.position == 4 %}
-    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(205px) translateX(140px)">
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(205px) translateX(145px)">
         {% for module in page.modules %}
 
         {% if module.type == 'image' and module.scotch == true %}
@@ -119,7 +119,7 @@
     {% endif %}
 
     {% if page.position == 5 %}
-    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(-65px) translateX(42px)">
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(-65px) translateX(57px)">
         {% for module in page.modules %}
 
         {% if module.type == 'image' and module.scotch == true %}
@@ -147,7 +147,7 @@
     {% endif %}
 
     {% if page.position == 6 %}
-    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(205px) translateX(-42px)">
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(205px) translateX(-57px)">
         {% for module in page.modules %}
 
         {% if module.type == 'image' and module.scotch == true %}
@@ -175,7 +175,7 @@
     {% endif %}
 
     {% if page.position == 7 %}
-    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(475px) translateX(625px)">
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(475px) translateX(620px)">
         {% for module in page.modules %}
 
         {% if module.type == 'image' and module.scotch == true %}

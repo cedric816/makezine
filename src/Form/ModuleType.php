@@ -22,6 +22,7 @@ class ModuleType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => false,
                 'choices' => [
+                    '' => '',
                     'Texte' => 'paragraph',
                     'Titre' => 'title',
                     'Image' => 'image'

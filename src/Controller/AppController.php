@@ -172,7 +172,7 @@ class AppController extends AbstractController
                 $userId = $this->getUser()->getId();
                 $imageName = $timestamp . $userId . '.' . $file->guessExtension();
 
-                // Move the file to the directory where brochures are stored
+                // Move the file to the directory where images are stored
                 try {
                     $file->move(
                         $this->getParameter('images_directory'),
