@@ -45,6 +45,11 @@ class Fanzine
      */
     private $abstract;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $visible;
+
     public function __construct()
     {
         $this->pages = new ArrayCollection();
@@ -129,6 +134,18 @@ class Fanzine
     public function setAbstract(?string $abstract): self
     {
         $this->abstract = $abstract;
+
+        return $this;
+    }
+
+    public function getVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): self
+    {
+        $this->visible = $visible;
 
         return $this;
     }

@@ -12,9 +12,8 @@
                 data-bs-interval="false">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="fanzine-page">
+                        <div class="card fanzine-page">
                             {% for module in modules %}
-
                             {% if module.type == 'image' and module.scotch == true %}
                             <div class="picture img-tape">
                                 <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
@@ -83,9 +82,21 @@
                             {% endif %}
                             {% if module.collage == false and module.type != 'image' %}
                             <div class={{module.type}}>{{module.content}}
-                                <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">🖊️</a>
+                                <a href={{path("edit_module", {"id":module.id})}} style="text-decoration: none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                    </svg>
+                                </a>
                                 <a href={{path("delete_module", {"id":module.id})}} style="text-decoration: none" ,
-                                    onclick="return confirm('supprimer le module?')">🗑️</a>
+                                    onclick="return confirm('supprimer le module?')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-file-earmark-x-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.854 7.146 8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 1 1 .708-.708z" />
+                                    </svg>
+                                </a>
                             </div>
                             {% endif %}
                             {% endfor %}
@@ -128,16 +139,15 @@
                     {{form_row(formModule.type)}}
                 </div>
                 <div class="mb-3" id="champ-contenu">
-                    <label for="module_content"><strong>Contenu</strong> (uniquement pour texte/titre)</label>
+                    <label for="module_content"><strong>Contenu</strong></label>
                     {{form_row(formModule.content)}}
                 </div>
                 <div class="mb-3" id="champ-legende">
-                    <label for="module_legend"><strong>Légende </strong>(uniquement pour image)</label>
+                    <label for="module_legend"><strong>Légende </strong></label>
                     {{form_row(formModule.legend)}}
                 </div>
                 <div class="mb-3" id="champ-collage">
-                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong>(uniquement pour
-                        texte/titre)?</label>
+                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
                     {{form_row(formModule.collage)}}
                 </div>
                 <div class="mb-3" id="champ-url">
@@ -145,8 +155,7 @@
                     {{form_row(formModule.url)}}
                 </div>
                 <div class="mb-3" id="champ-scotch">
-                    <label for="module_scotch"><strong>Appliquer un aspect `scotch`?</strong>(uniquement pour
-                        image)?</label>
+                    <label for="module_scotch"><strong>Appliquer un aspect `scotch`?</strong></label>
                     {{form_row(formModule.scotch)}}
                 </div>
                 <button class="btn btn-success mb-3" id="submit-btn">Modifier</button>
@@ -160,15 +169,15 @@
                     {{form_row(formModuleCreate.type)}}
                 </div>
                 <div class="mb-3" id="champ-contenu">
-                    <label for="module_content"><strong>Contenu (uniquement pour texte/titre)</strong></label>
+                    <label for="module_content"><strong>Contenu</strong></label>
                     {{form_row(formModuleCreate.content)}}
                 </div>
                 <div class="mb-3" id="champ-legende">
-                    <label for="module_legend"><strong>Légende (uniquement pour image)</strong></label>
+                    <label for="module_legend"><strong>Légende</strong></label>
                     {{form_row(formModuleCreate.legend)}}
                 </div>
                 <div class="mb-3" id="champ-collage">
-                    <label for="module_collage"><strong>Appliquer un aspect `collage` au texte/titre?</strong></label>
+                    <label for="module_collage"><strong>Appliquer un aspect `collage`?</strong></label>
                     {{form_row(formModuleCreate.collage)}}
                 </div>
                 <div class="mb-3" id="champ-url">
@@ -176,7 +185,7 @@
                     {{form_row(formModuleCreate.url)}}
                 </div>
                 <div class="mb-3" id="champ-scotch">
-                    <label for="module_scotch"><strong>Appliquer un aspect `scotch` à l'image?</strong></label>
+                    <label for="module_scotch"><strong>Appliquer un aspect `scotch`?</strong></label>
                     {{form_row(formModuleCreate.scotch)}}
                 </div>
                 <button class="btn btn-success mb-3" id="submit-btn">Insérer</button>

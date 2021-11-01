@@ -53,8 +53,9 @@ class ModuleType extends AbstractType
                         'mimeTypes' => [
                             'image/jpg',
                             'image/jpeg',
+                            'image/png'
                         ],
-                        'mimeTypesMessage' => 'image au format jpg ou jpeg svp - taille max 5000k',
+                        'mimeTypesMessage' => 'image au format png, jpg ou jpeg svp - taille max 5000k',
                     ])
                 ],
             ])

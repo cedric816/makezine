@@ -12,7 +12,6 @@ body{
     width: 264px;
     height: 377px;
     overflow: hidden;
-    background-color: whitesmoke;
     margin: 10px;
     padding: 5px;
     font-family: "Press-Feeling-Eroded";
@@ -76,6 +75,25 @@ body{
 
 .carousel-inner .fanzine-page{
     margin: auto;
+}
+.page-btn{
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    color: white;
+    font-weight: 500;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    transition: all 500ms;
+}
+.page-btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: solid black 1px;
 }
 
 @import "~bootstrap/scss/bootstrap";

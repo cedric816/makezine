@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Cet e-mail est déjà utilisé pour un autre compte")
+ * @UniqueEntity(fields={"pseudo"}, message="Ce pseudo est déjà utilisé pour un autre compte")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -41,6 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Fanzine::class, mappedBy="user", orphanRemoval=true)
      */
     private $fanzines;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pseudo;
 
     public function __construct()
     {
@@ -162,6 +170,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $fanzine->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

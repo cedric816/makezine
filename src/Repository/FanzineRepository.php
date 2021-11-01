@@ -22,19 +22,17 @@ class FanzineRepository extends ServiceEntityRepository
     // /**
     //  * @return Fanzine[] Returns an array of Fanzine objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findLastFour()
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('f.visible = :val')
+            ->orderBy('f.createdAt', 'ASC')
+            ->setMaxResults(4)
+            ->setParameter('val', true)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Fanzine

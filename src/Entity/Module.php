@@ -58,6 +58,11 @@ class Module
      */
     private $legend;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $filling;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +160,18 @@ class Module
     public function setLegend(?string $legend): self
     {
         $this->legend = $legend;
+
+        return $this;
+    }
+
+    public function getFilling(): ?int
+    {
+        return $this->filling;
+    }
+
+    public function setFilling(?int $filling): self
+    {
+        $this->filling = $filling;
 
         return $this;
     }

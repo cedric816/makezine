@@ -28,6 +28,7 @@ class ZineFixtures extends Fixture
         $user->setEmail('user@mail.com');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'pass'));
         $user->setRoles(['ROLE_USER']);
+        $user->setPseudo('user');
         $manager->persist($user);
 
         $manager->flush();      

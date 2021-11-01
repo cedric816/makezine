@@ -1,0 +1,235 @@
+{% extends 'base-without-menu.html.twig' %}
+
+{% block title %}Zine ready to print :){% endblock %}
+
+{% block body %}
+<div class="d-flex flex-wrap" style="height:1140px; width: 805px; margin-left:10px">
+    {% for page in fanzine.pages %}
+
+    {% if page.position == 1 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(475px) translateX(50px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 2 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(205px) translateX(-50px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 3 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(-65px) translateX(-144px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 4 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(205px) translateX(145px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 5 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(90deg) translateY(-65px) translateX(57px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 6 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(205px) translateX(-57px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 7 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(475px) translateX(620px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.position == 8 %}
+    <div class="fanzine-page" style="margin: 3px;  transform: rotate(-90deg) translateY(205px) translateX(910px)">
+        {% for module in page.modules %}
+
+        {% if module.type == 'image' and module.scotch == true %}
+        <div class="picture img-tape">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.type == 'image' and module.scotch != true %}
+        <div class="picture">
+            <img src={{ asset('img/' ~ module.url) }} alt={{module.legend}}>
+            <figcaption style="font-style: italic">{{module.legend}}</figcaption>
+        </div>
+        {% endif %}
+
+        {% if module.collage == true and module.type != 'image' %}
+        <div class={{module.type ~'-collage'}}>{{module.content}}</div>
+        {% endif %}
+        {% if module.collage == false and module.type != 'image' %}
+        <div class={{module.type}}>{{module.content}}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+</div>
+{% endblock %}

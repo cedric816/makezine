@@ -25,6 +25,12 @@ class FanzineType extends AbstractType
                     "placeholder" => "résumé"
                 ]
             ])
+            ->add('visible', null, [
+                "label" => false,
+                "attr" => [
+                    "placeholder" => "Fanzine visible par les autres visiteurs?"
+                ]
+            ])
         ;
     }
 
