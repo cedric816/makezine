@@ -14,6 +14,68 @@ import './bootstrap';
 require('bootstrap');
 
 /*
+*animation CSS lors navigation zine
+*/
+let currentPageNb = 1;
+let oldPageNb;
+let currentPageEl;
+let oldPageEl;
+let nextControlEl = document.getElementById('nextControl');
+let previousControlEl = document.getElementById('previousControl');
+
+function assignCss (nb){
+    currentPageEl = document.querySelector('#nav-zine button:nth-child('+nb+')');
+    currentPageEl.classList.add('current-btn');
+}
+
+function removeCss (nb){
+    oldPageEl = document.querySelector('#nav-zine button:nth-child('+nb+')');
+    oldPageEl.classList.remove('current-btn');
+}
+
+if (nextControlEl != null){
+    nextControlEl.addEventListener('click', function(){
+        if (currentPageNb == 9){
+            currentPageNb = 1;
+            oldPageNb = 9;
+            removeCss(oldPageNb);
+            assignCss(currentPageNb);
+        } else {
+            oldPageNb = currentPageNb;
+            currentPageNb ++;
+            removeCss(oldPageNb);
+            assignCss(currentPageNb);
+        }
+    })
+}
+
+if (previousControlEl != null){
+    previousControlEl.addEventListener('click', function(){
+        if (currentPageNb == 1){
+            currentPageNb = 9;
+            oldPageNb = 1;
+            removeCss(oldPageNb);
+            assignCss(currentPageNb);
+        } else {
+            oldPageNb = currentPageNb;
+            currentPageNb --;
+            removeCss(oldPageNb);
+            assignCss(currentPageNb);
+        }
+    })
+}
+
+let btnList = document.getElementsByClassName('page-btn');
+for (let btn of btnList){
+    btn.addEventListener('click', function(){
+        oldPageNb = currentPageNb;
+        currentPageNb = parseInt(btn.dataset.position);
+        removeCss(oldPageNb);
+        assignCss(currentPageNb);
+    })
+}
+
+/*
 *animation du formulaire de création d'un module
 */
 let champType = document.getElementById('champ-type');

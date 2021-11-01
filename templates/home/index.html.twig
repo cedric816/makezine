@@ -46,16 +46,15 @@
                             <p class="card-text"><strong>Créé le:</strong> {{fanzine.createdAt|date("d/m/Y")}}</p>
                             <p class="card-text"><strong>Résumé:</strong> {{fanzine.abstract}}</p>
                             <p class="card-text"><strong>Auteur:</strong> {{fanzine.user.pseudo}}</p>
-                            <a href={{path('home_read', {'id': fanzine.id})}} class="btn btn-dark" style="font-family: Press-Feeling-Eroded; font-size:22px;">LIRE</a>
+                            <a href={{path('home_read', {'id':fanzine.id})}} class="btn btn-dark" style="font-family: Press-Feeling-Eroded; font-size:22px;">LIRE</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
 	</div>
-    <div class="d-flex flex-column align-center bg-dark mt-5 text-light" style="padding-bottom: 30px;">
+	<div class="d-flex flex-column align-center bg-dark mt-5 text-light" style="padding-bottom: 30px;">
 		<h3 style="font-family: Press-Feeling-Eroded; font-size:36px; text-align:center">Comment plier son Fanzine?</h3>
         <img src="/img/pliage.jpg" alt="" width="50%" style="margin-left: 25%;">
 	</div>
-	
 {% endblock %}

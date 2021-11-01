@@ -9,16 +9,16 @@
 			<div class="col-md-6 border">
 				<h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Fanzine en cours de modification</h3>
 				<h5>"{{selectedZine.title}}"</h5>
-				<div class="d-flex justify-content-center mt-2 mb-2">
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active page-btn" aria-current="true" aria-label="Slide 1">i</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" class="page-btn" aria-label="Slide 2">1</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" class="page-btn" aria-label="Slide 3">2</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="3" class="page-btn" aria-label="Slide 4">3</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="4" class="page-btn" aria-label="Slide 5">4</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="5" class="page-btn" aria-label="Slide 6">5</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="6" class="page-btn" aria-label="Slide 7">6</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="7" class="page-btn" aria-label="Slide 8">7</button>
-					<button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="8" class="page-btn" aria-label="Slide 9">8</button>
+				<div class="d-flex justify-content-center mt-2 mb-2" id="nav-zine">
+					<button type="button" data-position ="1" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active page-btn" aria-current="true" aria-label="Slide 1">i</button>
+					<button type="button" data-position ="2" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" class="page-btn" aria-label="Slide 2">1</button>
+					<button type="button" data-position ="3" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" class="page-btn" aria-label="Slide 3">2</button>
+					<button type="button" data-position ="4" data-bs-target="#carouselExampleControls" data-bs-slide-to="3" class="page-btn" aria-label="Slide 4">3</button>
+					<button type="button" data-position ="5" data-bs-target="#carouselExampleControls" data-bs-slide-to="4" class="page-btn" aria-label="Slide 5">4</button>
+					<button type="button" data-position ="6" data-bs-target="#carouselExampleControls" data-bs-slide-to="5" class="page-btn" aria-label="Slide 6">5</button>
+					<button type="button" data-position ="7" data-bs-target="#carouselExampleControls" data-bs-slide-to="6" class="page-btn" aria-label="Slide 7">6</button>
+					<button type="button" data-position ="8" data-bs-target="#carouselExampleControls" data-bs-slide-to="7" class="page-btn" aria-label="Slide 8">7</button>
+					<button type="button" data-position ="9" data-bs-target="#carouselExampleControls" data-bs-slide-to="8" class="page-btn" aria-label="Slide 9">8</button>
 				</div>
 				<div class="carousel-inner"></div>
 				<div id="carouselExampleControls" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
@@ -35,7 +35,7 @@
 									<h3 style="font-family: Press-Feeling-Eroded; font-size:26px">Visible des autres visiteurs</h3>
 									{% if selectedZine.visible == true %}
 										<p class="card-text">OUI</p>
-										{% else %}
+									{% else %}
 										<p class="card-text">NON</p>
 									{% endif %}
 
@@ -43,7 +43,7 @@
 							</div>
 							<div class="mt-2 mb-2 d-flex justify-content-center">
 								<a href={{path("update_zine", {"id":selectedZine.id} )}} class="btn btn-info">Modifier
-																											                                les infos du Fanzine</a>
+																																													                                les infos du Fanzine</a>
 							</div>
 						</div>
 						{% for page in pages %}
@@ -80,11 +80,11 @@
 							</div>
 						{% endfor %}
 					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<button id="previousControl" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+						<span  class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Previous</span>
 					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					<button id="nextControl" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Next</span>
 					</button>
