@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     {
         $lastZines = $zineRepo->findLastFour();
         return $this->render('home/index.html.twig', [
-            'lastZines' => $lastZines
+            'lastZines' => $lastZines,
         ]);
     }
 
