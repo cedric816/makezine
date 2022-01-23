@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container mt-5 mb-5 overflow-auto">
 		<div class="row mt-5 mb-4">
-			<div class="col-md-6 border">
+			<div class="col-xs-12 col-md-6 border">
 				<h3 style="font-family: Press-Feeling-Eroded; font-size:48px">Lecture d'un Fanzine</h3>
 				<h5>"{{zine.title}}
 					par
@@ -77,7 +77,7 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-md-6 d-flex flex-column align-items-center justify-content-around">
+			<div class="col-xs-12 col-md-6 d-flex flex-column align-items-center justify-content-around">
 				<div class="d-flex flex-column align-items-center justify-content-center">
 					<a href={{path('home_print', {'id': zine.id} )}} target="_blank" class="btn btn-dark">Imprimer ce fanzine</a>
 					<p class="text-center">Tu seras redirigé vers une nouvelle page depuis laquelle il sera possible d'imprimer le fanzine ou de le sauvegarder en format pdf</p>
